@@ -1,0 +1,7 @@
+LoanLog2DW_SMap与LoanLog2DW_JMap两者不同之处在于代码中Map数据结构的实现不同
+前者为scala.collection.immutable.Map
+后者为java.util.Map
+代码中解析json用的是com.alibaba.fastjson速度很快，由于是纯java编写的在Map转为json string时，如果Map采用前者的scala.collection.immutable.Map
+最终还需要转换为java.util.Map然后创建json对象再转为json string，如果此时采用的Map要重新自定义为更多的嵌套，最终会导致数据序列化或者出现多级嵌套的Map
+无法正确转换为所需结构，所以才有了后者一开始就使用java.util.Map,这样就不会存在前者会出现的Map嵌套转json string无法达到逾期数据结构的问题
+

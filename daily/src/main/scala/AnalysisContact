@@ -1,0 +1,66 @@
+import org.apache.spark.sql.SparkSession
+
+object AnalysisContact extends App {
+
+  val spark = SparkSession
+    .builder()
+    .appName("AnalysisContact")
+    .master("local[*]")
+    .getOrCreate()
+
+  val info = Map("path" -> "hdfs://master:9000/data/wolong/contact", "header" -> "true")
+  val data = spark.read.format("csv").options(info).load()
+  data.createTempView("contact")
+  spark.sql("select id from contact where pon='0'").createTempView("n_contact")
+  val n = spark.sql("select id from contact where pon = '0'").createTempView("n")
+  val fc_n = spark.sql("select count(1) from contact where contact.fc not in (select id from n)")
+  /*
+  //总量
+  spark.sql("select count(1)  from contact").show
+  100495
+  //重复record
+  spark.sql("select *,count(1) as n from contact group by id,fc,sc,tc,pon,scale having count(1) > 1").count
+  757
+  //通过数量
+  spark.sql("select * from contact where pon = '1'").count
+  res28: Long = 71040
+  //未通过数量
+  spark.sql("select * from contact where pon = '0'").count
+  res1: Long = 29455
+  //重复贷款号码
+  spark.sql("select id,collect_list(scale) as scales from contact where scale is not null group by id having size(scales) > 1").show
+  -> 13408948060|[4, 4]|
+  //逾期总量
+  spark.sql("select * from contact where scale is not null").count
+  res27: Long = 8833
+  //等级逾期统计
+  val overdue_nums = spark.sql("select * from contact where scale is not null").count
+  spark.sql("select scale,round(count(1) / '"+overdue_nums+"',3) as p from contact where scale is not null group by scale order by  scale asc").show
++-----+-----+
+|scale|    p|
++-----+-----+
+|    1|0.414|
+|    2|0.154|
+|    3|0.122|
+|    4|0.187|
+|    5|0.089|
+|    6|0.007|
+|    7|0.027|
++-----+-----+
+  //
+  spark.sql("select a.* from (select id,fc,pon,scale from contact)a  left semi join (select id from n)b on a.fc=b.id").count
+  500->p:157,n:343
+  spark.sql("select a.* from (select id,sc,pon,scale from contact)a  left semi join (select id from n)b on a.sc=b.id").count
+  376->p:79,n:297
+  spark.sql("select a.* from (select id,tc,pon,scale from contact)a  left semi join (select id from n)b on a.tc=b.id").count
+  1439->p:465,n:974
+  //fc,sc,tc都在id未通过的列表中
+  spark.sql("select * from contact where fc in (select id from n) and sc in (select id from n) and tc in (select id from n )").show
+
+   */
+
+
+
+
+
+}

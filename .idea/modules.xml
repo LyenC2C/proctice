@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/online/collector/collector.iml" filepath="$PROJECT_DIR$/online/collector/collector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/daily/daily.iml" filepath="$PROJECT_DIR$/daily/daily.iml" />
+      <module fileurl="file://$PROJECT_DIR$/es-spark/es-spark.iml" filepath="$PROJECT_DIR$/es-spark/es-spark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/online/online.iml" filepath="$PROJECT_DIR$/online/online.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parent/parent.iml" filepath="$PROJECT_DIR$/parent/parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/online/processer/processer.iml" filepath="$PROJECT_DIR$/online/processer/processer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/online/producer/producer.iml" filepath="$PROJECT_DIR$/online/producer/producer.iml" />
+    </modules>
+  </component>
+</project>
